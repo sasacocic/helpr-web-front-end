@@ -1,6 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import TheStore from './Store'
+import {Provider} from 'react-redux'
+import { getUsers } from './Actions'
+import TestComp from './TestComp.jsx'
 
 
 class Thingo extends React.Component {
@@ -12,5 +15,15 @@ class Thingo extends React.Component {
   }
 }
 
+console.log('user...');
 
-ReactDOM.render( <Thingo />, document.getElementById('ApplicationStart'))
+TheStore.dispatch( getUsers() )
+
+window.store = TheStore
+
+
+ReactDOM.render(
+  <Provider store={TheStore}>
+    <TestComp />
+  </Provider>,
+document.getElementById('ApplicationStart'))
