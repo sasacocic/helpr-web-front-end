@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild:dev": "find ./helpr/assets/bundles -name 'App*' -delete",
     "build:dev": "webpack",
-    "build:dev:watch" : "webpack -w"
+    "build:dev:watch": "webpack -w"
   },
   "author": "sasa cocic",
   "license": "ISC",
@@ -21,6 +21,11 @@
     "webpack-bundle-tracker": "^0.2.0"
   },
   "dependencies": {
-    "react-dom": "^15.6.1"
+    "isomorphic-fetch": "^2.2.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
   }
 }
