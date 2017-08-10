@@ -55,6 +55,8 @@ local_settings.py
 private_settings.py
 db.sqlite3
 node_modules/
+helpr/assets/
+webpack-stats.json
 package-lock.json
 
 # Flask stuff:
