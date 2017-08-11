@@ -19,8 +19,6 @@ class TestComp extends React.Component{
     })
   }
 
-
-
   render(){
     return(
       <div>
@@ -33,9 +31,10 @@ class TestComp extends React.Component{
 }
 
 
+/* --- Container --- */
+
 const mapStateToProps = (state) =>{
   return({
-    aThing: 'aThing',
     things: state.first
   })
 }
