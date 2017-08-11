@@ -25,11 +25,27 @@ module.exports = env => {
             },
           ]
         },
+        {
+          test: /\.css$/,
+          use: [
+            {loader: 'style-loader'},
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[path][name]__[local]--[hash:base64:5]'
+              }
+            }
+          ]
+        }
       ]
     },
     plugins: [
       new BundleTracker({path: __dirname, filename: "./webpack-stats.json"})
-    ]
+    ],
+    resolve:{
+      extensions: [".js", ".jsx", ".css"],
+    }
   }
 
   return config
