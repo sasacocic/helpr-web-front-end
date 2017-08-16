@@ -1,5 +1,6 @@
 import thunk from "redux-thunk"
 import singleReducer from './Reducers'
+import { helpers } from './Actions' //this makes the actions run before the store
 import logger from 'redux-logger'
 import {
   createStore,
@@ -8,11 +9,11 @@ import {
   combineReducers,
 } from "redux"
 
+const hydrate = {
+  userSignedIn: !!window.localStorage['jwtToken']
+}
 
-
-// const store = applyMiddleware(thunk, logger)(createStore)(singleReducer);
-
-const store = createStore(singleReducer, applyMiddleware(thunk, logger));
+const store = createStore(singleReducer, hydrate, applyMiddleware(thunk, logger));
 
 
 export default store
