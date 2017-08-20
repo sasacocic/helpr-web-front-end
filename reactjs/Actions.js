@@ -32,8 +32,14 @@ export const helpers = {
   }
 }
 export function viewPayload(){
-  var payload = helpers.decodeJwtPayload(window.localStorage[storage_consts.JWT])
-  console.log(payload);
+  try {
+    var payload = helpers.decodeJwtPayload(window.localStorage[storage_consts.JWT])
+    console.log(payload);
+  } catch(err) {
+    console.log('error occured in decoding jwt payload.');
+    console.log(err);
+  }
+
 }
 var api_scheme = {
   baseUrl : 'http://localhost:8080',
@@ -53,10 +59,10 @@ if(helpers.isUserValid(window.localStorage[storage_consts.JWT]) ){
 }
 
 /* pure actions */
-const userAction = (paypay) => {
+const userAction = (userPayload) => {
   return {
-      type: Consts.FIRST,
-      payload: paypay
+      type: Consts.USERLIST,
+      payload: userPayload
   }
 }
 const userSignInAction = (bool) => {
@@ -90,14 +96,18 @@ export const logInUser = (username, password) => (dispatch, getState) => {
     fetch(auth_endpoint,{
       method: 'POST',
       body: login_form
-    }).then(res => res.json())
+    }).then(res => {
+      if(res.ok){
+        return res.json()
+      }
+      throw new Error("Network response was not 200");
+    })
     .then(res => {
-      console.log(`res.token: ${res.token}`);
       if (!window.localStorage[storage_consts.JWT]){
+        console.log(`Previous token: ${window.localStorage[storage_consts.JWT]}`);
         window.localStorage.setItem(storage_consts.JWT, res.token)
+        console.log(`New token: ${window.localStorage[storage_consts.JWT]}`);
         dispatch( userSignInAction(true) )
-      }else{
-        console.log('error when we tried setting the item');
       }
       return res;
     }).catch(err => console.log(err))

@@ -6,13 +6,13 @@ import { reducer as formReducer } from 'redux-form'
 /*
 what the state should look like.
 {
-  first: [array of users],
+  userList: [ user: {}, user: {}, .....],
   userSignedIn: bool
 }
 */
 
-const first = (state=[], action) => {
-  if (action.type === Consts.FIRST){
+const userList = (state=[], action) => {
+  if (action.type === Consts.USERLIST){
     return action.payload
   }
   return state
@@ -26,7 +26,7 @@ const userSignedIn = (state=false, action) => {
 }
 
 export default combineReducers({
-  first,
+  userList,
   userSignedIn,
   form: formReducer,
 })

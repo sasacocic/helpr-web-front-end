@@ -1,4 +1,4 @@
 export default {
-  'FIRST': 'FIRST',
+  'USERLIST': 'USERLIST',
   'USERSTATE' : 'USERSTATE'
 }
