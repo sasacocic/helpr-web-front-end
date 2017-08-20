@@ -33,7 +33,7 @@ class TestComp extends React.Component{
 
 const mapStateToProps = (state) =>{
   return({
-    things: state.first
+    things: state.userList
   })
 }
 
