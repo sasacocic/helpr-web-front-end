@@ -1,0 +1,11 @@
+
+/*  GLOBAL STYLES NOT WORKING NEED TO FIX WEBPACK.CONFIG.BABEL.JS */
+
+:global(.sideMargins){
+  margin: 0px 20px;
+}
+
+
+:global(.myclass) {
+  background-color: red;
+}

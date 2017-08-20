@@ -2,9 +2,9 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import {connect} from 'react-redux'
 import {logInUser, viewPayload} from './Actions'
+import styles from './css/Login'
 
 let LoginForm = props => {
-  console.log(`history object: ${props.history.goBack}`);
   var submit = (values) =>{
     var {username, password} = values
     props.logIn(username, password).then(res => console.log(`we are done and this is what we got ${res}`) )
@@ -12,20 +12,33 @@ let LoginForm = props => {
 
   const { handleSubmit } = props
   return(
-    <div>
-      <form onSubmit={handleSubmit(submit)}>
-        <div>
-          <label htmlFor="username">Username</label>
-          <Field name="username"type="text" component="input" />
-        </div>
-        <div>
-          <label htmlFor="Password">Password</label>
-          <Field name="password" type="password" component="input" />
-        </div>
-        <button type="submit">Submit</button>
+    <div className={styles.navContainer}>
 
-      </form>
+      <div className={styles.innerContainer}>
+
+        <h2>{"Login"}</h2>
+
+        <form className={styles.flexIt} onSubmit={handleSubmit(submit)}>
+
+          <div className={styles.formCol}>
+            <label htmlFor="username">Username</label>
+            <Field className={styles.fromColField} name="username"type="text" component="input" />
+          </div>
+
+          <div className={styles.formCol}>
+            <label htmlFor="Password">Password</label>
+            <Field className={styles.fromColField} name="password" type="password" component="input" />
+          </div>
+
+          <div className={styles.formButton}>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+
+      {/* viewPayload() will cause an error if localStorage doesn't have a token */}
       <button type="button" onClick={() => viewPayload()}>Testing</button>
+
     </div>
 
   )
