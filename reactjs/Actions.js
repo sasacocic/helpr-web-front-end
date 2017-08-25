@@ -45,8 +45,12 @@ export function viewPayload(){
 var api_scheme = {
   baseUrl : 'http://localhost:8080',
   auth_token : '/api-token-auth/',
+  accounts: "/accounts/",
   get_auth_token: function(){
     return this.baseUrl + this.auth_token
+  },
+  get_user_accounts: function(){
+    return this.baseUrl + this.accounts
   }
 }
 var storage_consts = {
@@ -78,15 +82,22 @@ const userSignInAction = (bool) => {
 
 /* action thunks */
 export const getUsers = () => (dispatch, getState) => {
-  return fetch('http://localhost:8080/accounts/',{
+  var usersEndpoint = api_scheme.get_user_accounts()
+  return fetch(usersEndpoint,{
     headers:{
       "Authorization": "JWT " + window.localStorage[storage_consts.JWT]
     }
   })
-  .then(response => response.json())
+  .then(response => {
+    if(response.ok){
+      return response.json()
+    }
+    throw new Error("Network response was not 200");
+  })
   .then(users => dispatch( userAction(users) ))
   .catch(error => console.log(error))
 }
+
 export const logInUser = (username, password) => (dispatch, getState) => {
   var auth_endpoint = api_scheme.get_auth_token()
   var login_form = new FormData()
