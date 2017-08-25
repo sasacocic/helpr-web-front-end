@@ -1,15 +1,26 @@
 import React from 'react'
-import { Route, Switch, Link } from 'react-router-dom'
+import { Route, Switch, Link,withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 /* My components */
-import TestComp from './TestComp'
+import Home from './Home'
 import Login from './Login'
 import Navigation from './Navigation'
 /* My components */
 
 
-
-
+const HomeOrLogin = ({compProps}) => {
+  var {loggedInState} = compProps
+  return(
+    <Route exact path="/" render={props => {
+        if(loggedInState){
+          return (<Home {...props} />)
+        }else{
+          return <Login {...props} />
+        }
+      }
+    } />
+  )
+}
 
 class Routes extends React.Component {
   constructor(props){
@@ -24,19 +35,7 @@ class Routes extends React.Component {
     return(
       <div>
         <Navigation />
-        <Switch>
-
-          <Route exact path="/" render={props => {
-              if(this.props.loggedInState){
-                return (<TestComp {...props} />)
-              }else{
-                return (<Link to="login/">{"Go Login"}</Link>)
-              }
-            }
-          } />
-          <Route exact path="/login/" render={props => <Login {...props} />} />
-        </Switch>
-
+        <HomeOrLogin compProps={this.props} />
       </div>
     )
   }
@@ -55,4 +54,4 @@ const mapDispatchToProps = (dispatch) =>{
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Routes)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Routes))

@@ -4,10 +4,12 @@ import {connect} from 'react-redux'
 import {logInUser, viewPayload} from './Actions'
 import styles from './css/Login'
 
-let LoginForm = props => {
+let LoginForm = (props) => {
   var submit = (values) =>{
     var {username, password} = values
-    props.logIn(username, password).then(res => console.log(`we are done and this is what we got ${res}`) )
+    props.logIn(username, password).then(res => {
+      props.history.push('/') // reload '/' path
+    })
   }
 
   const { handleSubmit } = props

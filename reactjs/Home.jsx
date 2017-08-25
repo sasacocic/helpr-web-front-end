@@ -4,7 +4,7 @@ import { getUsers } from './Actions'
 import { Switch, Route } from 'react-router-dom'
 import fetch from 'isomorphic-fetch'
 
-class TestComp extends React.Component{
+class Home extends React.Component{
   constructor(props){
     super(props)
     this.state = {
@@ -13,7 +13,7 @@ class TestComp extends React.Component{
   }
 
   componentDidMount(){
-    this.props.first().then(result => {
+    this.props.getUserList().then(result => {
       this.setState({
         fetching: false
       })
@@ -23,7 +23,7 @@ class TestComp extends React.Component{
   render(){
     return(
       <div>
-        {this.state.fetching ? <p>{'fetching'}</p> : this.props.things.map( (user, ind) => <div key={ind}>{user.user.username}</div> )}
+        {this.state.fetching ? <p>{'fetching'}</p> : this.props.userList.map( (user, ind) => <div key={ind}>{user.user.username}</div> )}
       </div>
     )
   }
@@ -33,14 +33,14 @@ class TestComp extends React.Component{
 
 const mapStateToProps = (state) =>{
   return({
-    things: state.userList
+    userList: state.userList
   })
 }
 
 const mapDispatchToProps = (dispatch) =>{
   return(
     {
-      first: () =>{
+      getUserList: () =>{
         return dispatch( getUsers() ).then(res => res)
       }
     }
@@ -48,4 +48,4 @@ const mapDispatchToProps = (dispatch) =>{
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(TestComp)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
