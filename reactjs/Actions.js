@@ -41,10 +41,13 @@ export function viewPayload(){
   }
 
 }
+
 var api_scheme = {
   baseUrl : 'http://localhost:8080',
   auth_token : '/api-token-auth/',
-  get_auth_token: () => api_scheme.baseUrl + api_scheme.auth_token,
+  get_auth_token: function(){
+    return this.baseUrl + this.auth_token
+  }
 }
 var storage_consts = {
   JWT: 'jwtToken'
